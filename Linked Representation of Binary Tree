@@ -1,0 +1,99 @@
+	#include<stdio.h>
+	#include<stdlib.h>
+	typedef struct Node{
+	        int key;
+	        struct Node *rchild,*lchild;
+	}Node;
+	Node *root = NULL;
+	Node *getNode(){
+	        Node *new = (Node*)malloc(sizeof(Node));
+	        printf("Enter key :");
+	        scanf("%d",& new->key);
+	        new->rchild = NULL;
+	        new->lchild = NULL;
+	        return new;
+	}
+	int insert_root()
+	{
+	        if(root == NULL)
+	        {
+	                Node *new = getNode();
+	                root = new;
+	        }
+	}
+	void insert_lchild(Node *root)
+	{
+	        if(root->lchild == NULL){
+	                Node *new = getNode();
+	                root->lchild = new;
+	}
+	}
+	void insert_rchild(Node *root)
+	{
+	        Node *new = getNode();
+	        if(root->rchild == NULL){
+	                root->rchild = new;
+	        }
+	                                    }
+	void preorder(Node *root)
+	{
+	
+	        if(root != 0)
+	        {
+	                printf("%4d",root->key);
+	                preorder(root->lchild);
+	                preorder(root->rchild);
+	        }
+	}
+	void postorder(Node *root)
+	{
+	
+	        if(root != 0)
+	        {
+	                postorder(root->lchild);
+	                postorder(root->rchild);
+	                printf("%4d",root->key);
+	        }
+	}
+	void inorder(Node * root)
+	{
+	
+	        if(root != 0)
+	        {
+	                inorder(root->lchild);
+	                printf("%4d",root->key);
+	                inorder(root->rchild);
+	        }
+	}
+	void main()
+	{
+	        insert_root();
+	        insert_lchild(root);
+	        insert_rchild(root);
+	        insert_lchild(root->lchild);
+	insert_rchild(root->lchild);
+	        insert_lchild(root->rchild);
+	        insert_rchild(root->rchild);
+	
+	
+	        int ch;
+	        while(1)
+	        {
+	                printf("1.Preorder\n2.Postorder\n3.Inorder\n4.exit\nEnter your choice : ");
+	                scanf("%d",&ch);
+	                switch(ch)
+	                {
+	                        case 1: printf("Preorder :");
+	                                preorder(root);
+	                                break;
+	                        case 2: printf("postorder :");
+	                                postorder(root);
+	                                break;
+	                        case 3: printf("inorder :");
+	                                inorder(root);
+	                                break;
+	                        case 4: exit(0);
+	                                break;
+	                }
+	        }
+	}
