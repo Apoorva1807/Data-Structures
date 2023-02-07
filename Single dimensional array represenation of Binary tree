@@ -1,0 +1,118 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 50
+char tree[MAX] = {'\0'};
+int n;
+void root(char key){
+if(tree[0] != '\0'){
+	        printf("root exists\n");
+	}
+	else{
+	        tree[0] = key;
+	        }
+	}
+	void insert_lchild(char key, int parent)
+	{
+	        if(tree[parent] == '\0')
+	        {
+	                printf("Parent doesnt exist\n");
+	        }
+	        else{
+	                tree[2*parent+1] = key;
+	        }
+	}
+	void insert_rchild(char key, int parent)
+	{
+	        if(tree[parent] == '\0')
+	        {
+	                printf("Parent doesnt exists\n");
+	        }
+	        else
+	        {
+	                tree[2*parent+2] = key;
+	        }
+	}
+	void print_tree()
+	{
+	        int i;
+	        for(i=0;i<n;i++)
+	        {
+	                printf("%c ",tree[i]);
+	        }
+	}
+	int get_l(int index)
+	{
+	        if((tree[index] != '\0') &&(( 2*index+1) < n))
+	                return 2*index+1;
+	                return -1;
+	}
+	int get_r(int index)
+	{
+	        if((tree[index] != '\0') &&((2*index+2)<n))
+	                return 2*index+2;
+	                return -1;
+	}
+	
+	void preorder(int root)
+	{
+	        if((root>=0)&&(tree[root] != '\0')){
+	                printf("%c ",tree[root]);
+	                preorder(get_l(root));
+	                preorder(get_r(root));
+	        }
+	}
+	void postorder(int root)
+	{
+	        if((root>=0)&&(tree[root] != '\0'))
+	        {
+	                postorder(get_l(root));
+	                 postorder(get_r(root));
+	                printf("%c ",tree[root]);
+	        }
+	}
+	void inorder(int root)
+	{
+	        if((root>=0)&&(tree[root] != '\0'))
+	        {
+	                inorder(get_l(root));
+	                printf("%c ",tree[root]);
+	                inorder(get_r(root));
+	        }
+	}
+	void main()
+	{
+	        printf("enter no .of nodes :");
+	        scanf("%d",&n);
+	        root('A');
+	        insert_lchild('G',0);
+	        insert_rchild('I',0);
+	        insert_lchild('k',1);
+	        insert_rchild('L',1);
+	        insert_lchild('M',2);
+	        insert_rchild('S',2);
+	        int ch;
+	        while(1)
+	        {
+	                printf("1.Preorder\n2.Postorder\n3.Inorder\n4.Exit\nEnter your choice : \n");
+	                scanf("%d",&ch);
+	                switch(ch)
+	                {
+	                        case 1: printf("Preorder :");
+	                                preorder(0);
+	                                break;
+	                        case 2: printf("Postorder : ");
+	                                postorder(0);
+	                                break;
+	                         case 3: printf("inorder : ");
+	                                  inorder(0);
+	                                  break;
+	                         case 4: exit(0);
+	                                  break;
+	                                  }
+	                                  }
+	                                  }
+	
+	
+
+
+	
