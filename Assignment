@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct Node {
+int data;
+struct Node* next;
+};
+
+struct Node* push(struct Node* head_ref, int new_data) {
+struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+new_node->data = new_data;
+new_node->next = head_ref;
+head_ref = new_node;
+return head_ref;
+}
+
+void printList(struct Node* node) {
+while (node != NULL) {
+printf("%d ", node->data);
+node = node->next;
+}
+printf("\n");
+}
+
+struct Node* segregateEvenOdd(struct Node* head) {
+struct Node* even_head = NULL;
+struct Node* even_ptr = NULL;
+struct Node* odd_head = NULL;
+struct Node* odd_ptr = NULL;
+struct Node* curr = head;
+
+
+while (curr != NULL) {
+    if ((curr->data) % 2 == 0) {
+        if (even_head == NULL) {
+            even_head = curr;
+            even_ptr = curr;
+        } else {
+            even_ptr->next = curr;
+            even_ptr = even_ptr->next;
+        }
+    } else {
+        if (odd_head == NULL) {
+            odd_head = curr;
+            odd_ptr = curr;
+        } else {
+            odd_ptr->next = curr;
+            odd_ptr = odd_ptr->next;
+        }
+    }
+    curr = curr->next;
+}
+
+if (even_head == NULL || odd_head == NULL) {
+    return head;
+}
+
+even_ptr->next = odd_head;
+odd_ptr->next = NULL;
+head = even_head;
+return head;
+}
+
+struct Node* deleteGreaterNodes(struct Node* head) {
+struct Node* curr = head;
+struct Node* max_node = curr;
+
+
+while (curr != NULL && curr->next != NULL) {
+    if (curr->next->data > max_node->data) {
+        struct Node* temp = curr->next;
+        curr->next = temp->next;
+        free(temp);
+    } else {
+        curr = curr->next;
+        max_node = curr;
+    }
+}
+
+return head;
+}
+
+int main() {
+struct Node* head = NULL;
+head = push(head, 10);
+head = push(head, 20);
+head = push(head, 15);
+head = push(head, 25);
+head = push(head, 30);
+head = push(head, 35);
+printf("Original linked list:\n");
+printList(head);
+head = segregateEvenOdd(head);
+printf("Linked list after segregating even and odd nodes:\n");
+printList(head);
+head = deleteGreaterNodes(head);
+printf("Linked list after deleting nodes having greater value on the right side:\n");
+printList(head);
+return 0;
+}
